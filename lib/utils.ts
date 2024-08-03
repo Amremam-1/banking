@@ -198,10 +198,12 @@ export const getTransactionStatus = (date: Date) => {
 export const schame = (type: string) =>
   z.object({
     email: z.string().email(),
-    password: z.string().min(6, { message: "Password is required!" }),
+    password: z
+      .string({ invalid_type_error: "Password is required!" })
+      .min(6, { message: "Password must be at least 6 charactres" }),
 
-    firstname: type === "sign-in" ? z.string().optional() : z.string().min(3),
-    lastname: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    firstName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    lastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
     address1: type === "sign-in" ? z.string().optional() : z.string().min(3),
     city: type === "sign-in" ? z.string().optional() : z.string().min(3),
     state:

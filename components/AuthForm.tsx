@@ -13,7 +13,7 @@ import { Form } from "@/components/ui/form"
 import { Loader2 } from "lucide-react"
 import { schame } from "@/lib/utils"
 import { useRouter } from "next/navigation"
-import { signUp , signIn} from "@/lib/actions/user.actions"
+import { signUp, signIn } from "@/lib/actions/user.actions"
 
 interface IProps {
   type: string
@@ -49,14 +49,14 @@ const AuthForm = ({ type }: IProps) => {
         setUser(newUser)
       }
 
-      // if (type === "sign-in") {
-      //   const response = await signIn({
-      //     email: data.email,
-      //     password: data.password,
-      //   })
+      if (type === "sign-in") {
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        })
 
-      //   if (response) router.push("/")
-      // }
+        if (response) router.push("/")
+      }
     } catch (error) {
       console.log(error)
     } finally {
@@ -103,13 +103,13 @@ const AuthForm = ({ type }: IProps) => {
                 <div className="flex gap-4">
                   <CustomInput
                     control={form.control}
-                    name="firstname"
+                    name="firstName"
                     palceholder="ex: name"
                     label="First Name"
                   />
                   <CustomInput
                     control={form.control}
-                    name="lastname"
+                    name="lastName"
                     palceholder="ex: Doe"
                     label="Last Name"
                   />
@@ -210,7 +210,7 @@ const AuthForm = ({ type }: IProps) => {
 }
 
 export default AuthForm
-function signin(arg0: { email: string; password: string }) {
-  throw new Error("Function not implemented.")
-}
 
+// function signin(arg0: { email: string; password: string }) {
+//   throw new Error("Function not implemented.")
+// }

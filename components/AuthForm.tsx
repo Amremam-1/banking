@@ -14,6 +14,7 @@ import { Loader2 } from "lucide-react"
 import { schame } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 import { signUp, signIn } from "@/lib/actions/user.actions"
+import PlaidLink from "./PlaidLink"
 
 interface IProps {
   type: string
@@ -45,7 +46,20 @@ const AuthForm = ({ type }: IProps) => {
       // Sign up with appWrite && create plain link token
 
       if (type === "sign-up") {
-        const newUser = await signUp(data)
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        }
+
+        const newUser = await signUp(userData)
         setUser(newUser)
       }
 
@@ -94,7 +108,9 @@ const AuthForm = ({ type }: IProps) => {
       </header>
 
       {user ? (
-        <div className="flex flex-col gap-4">{/* PlaidLink */}</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -137,7 +153,7 @@ const AuthForm = ({ type }: IProps) => {
 
                   <CustomInput
                     control={form.control}
-                    name="postalcode"
+                    name="postalCode"
                     palceholder="ex: 11101"
                     label="Postal Code"
                   />
@@ -145,7 +161,7 @@ const AuthForm = ({ type }: IProps) => {
                 <div className="flex gap-4">
                   <CustomInput
                     control={form.control}
-                    name="dateofbirth"
+                    name="dateOfBirth"
                     palceholder="YYYY-MM-DD"
                     label="Date of Birth"
                   />
